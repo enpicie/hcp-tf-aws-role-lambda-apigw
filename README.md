@@ -8,6 +8,8 @@ Pushing to this repo triggers a GitHub Actions run that deploys the Terraform co
 
 There are no dev/prod environment distinctions in this config as the created IAM role and HCP resources will be provisioned in enpicie's singular AWS and HCP accounts respectively.
 
+The pipeline will trigger on push to any branch. After the intial development is done to configure the IAM role, this config will only need to re-run when it needs to inject the HCP variable referencing the role into a new HCP workspace.
+
 ## Setup
 
-This config consumes the OIDC provider and IAM role with permissions to create IAM resources deployed via CloudFormation template in [aws-terraform-oidc-config](https://github.com/chzylee/aws-terraform-oidc-config)
+This config consumes the OIDC provider and IAM role with permissions to create IAM resources deployed via CloudFormation template in [aws-terraform-oidc-config](https://github.com/chzylee/aws-terraform-oidc-config).
