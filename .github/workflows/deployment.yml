@@ -1,0 +1,29 @@
+name: Deploy Terraform to HCP
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  HCP_TERRAFORM_ORG: enpicie
+  HCP_TERRAFORM_PROJECT: AWS-Infrastructure
+  HCP_TERRAFORM_WORKSPACE: hcp-tf-aws-lambda-apigw-role
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform and Deploy via HCP Terraform
+        uses: chzylee/action-workflow-hcp-terraform@v1.0.0
+        with:
+          hcp_terraform_organization: ${{ env.HCP_TERRAFORM_ORG }}
+          hcp_terraform_project: ${{ env.HCP_TERRAFORM_PROJECT }}
+          hcp_terraform_workspace: ${{ env.HCP_TERRAFORM_WORKSPACE }}
+          hcp_terraform_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_directory: .
