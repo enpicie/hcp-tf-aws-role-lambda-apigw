@@ -8,3 +8,8 @@ variable "oidc_provider_arn" {
   description = "ARN of the existing OIDC provider"
   type        = string
 }
+
+variable "hcp_organization_name" {
+  description = "HCP organization name"
+  type        = string
+}
