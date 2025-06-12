@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Terraform and Deploy via HCP Terraform
-        uses: chzylee/action-workflow-hcp-terraform@v1.0.0
+        uses: chzylee/action-workflow-hcp-terraform@v1.0.1
         with:
           hcp_terraform_organization: ${{ env.HCP_TERRAFORM_ORG }}
           hcp_terraform_project: ${{ env.HCP_TERRAFORM_PROJECT }}
