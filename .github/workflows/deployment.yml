@@ -22,7 +22,7 @@ jobs:
         uses: chzylee/action-workflow-hcp-terraform@v1.0.2
         with:
           tfcode_path: . # Action run from context of the repository root
-          tfc_hostname: https://app.terraform.io # HCP Terraform Cloud URL
+          tfc_hostname: app.terraform.io # HCP Terraform Cloud URL
           tfc_organization: ${{ env.HCP_TERRAFORM_ORG }}
           tfc_workspace: ${{ env.HCP_TERRAFORM_WORKSPACE }}
           TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
