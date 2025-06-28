@@ -2,49 +2,24 @@ data "aws_iam_openid_connect_provider" "hcp_terraform" {
   arn = var.oidc_provider_arn
 }
 
-data "aws_iam_policy_document" "hcp_oidc_assume_role_policy" {
-  statement {
-    effect = "Allow"
-
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-
-    principals {
-      type        = "Federated"
-      identifiers = [data.aws_iam_openid_connect_provider.hcp_terraform.arn]
-    }
-
-    condition {
-      test     = "StringEquals"
-      variable = "app.terraform.io:aud"
-      values   = ["aws.workload.identity"]
-    }
-
-    condition {
-      test     = "StringLike"
-      variable = "app.terraform.io:sub"
-      # Allows role to be used for any work done in the organization.
-      values = ["organization:*"]
-    }
-  }
-}
-
+# IAM role for Terraform Cloud to assume with full access to Lambda API Gateway.
+# Role can be assumed by Terraform Cloud using OIDC via config above.
+# Policy document is defined in oidc.tf.
 resource "aws_iam_role" "lambda_apigw_full_access" {
   name               = "lambda-apigw-full-access-role"
   assume_role_policy = data.aws_iam_policy_document.hcp_oidc_assume_role_policy.json
 }
 
-data "aws_iam_policy" "lambda_apigw_full_access" {
-  arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
-}
-
+# Attaches permissions for Lambda and API Gateway to role.
+# Policy is defined in policy.tf.
 resource "aws_iam_role_policy_attachment" "lambda_apigw_full_access" {
-  policy_arn = data.aws_iam_policy.lambda_apigw_full_access.arn
+  policy_arn = aws_iam_policy.lambda_apigw_full_access.arn
   role       = aws_iam_role.lambda_apigw_full_access.name
 }
 
 resource "tfe_variable_set" "lambda_apigw_role_var_set" {
   name         = aws_iam_role.lambda_apigw_full_access.name
-  description  = "OIDC federation configuration for ${aws_iam_role.lambda_apigw_full_access.arn}"
+  description  = "OIDC federation configuration for ${aws_iam_role.lambda_apigw_full_access.name}"
   organization = var.hcp_organization_name
 }
 
