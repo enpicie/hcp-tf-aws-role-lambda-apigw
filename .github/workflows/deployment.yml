@@ -7,22 +7,21 @@ on:
   workflow_dispatch:
 
 env:
+  AWS_REGION: 'us-east-2'
   HCP_TERRAFORM_ORG: enpicie
   HCP_TERRAFORM_WORKSPACE: hcp-tf-aws-lambda-apigw-role
+  HCP_TERRAFORM_PROJECT_ID: prj-pAh9kkvyHMNEjs4z
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Setup Terraform and Deploy via HCP Terraform
-        uses: chzylee/action-workflow-hcp-terraform@v1.0.2
+        uses: chzylee/action-workflow-hcp-terraform@v1.1.0
         with:
-          tfcode_path: . # Action run from context of the repository root
-          tfc_hostname: app.terraform.io # HCP Terraform Cloud URL
+          terraform_directory: ./ # Action run from context of the repository root
           tfc_organization: ${{ env.HCP_TERRAFORM_ORG }}
+          tfc_project_id: ${{ env.HCP_TERRAFORM_PROJECT_ID }}
           tfc_workspace: ${{ env.HCP_TERRAFORM_WORKSPACE }}
-          TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+          tfc_token: ${{ secrets.TF_API_TOKEN }}
