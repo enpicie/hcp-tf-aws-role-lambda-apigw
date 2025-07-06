@@ -17,10 +17,14 @@ resource "aws_iam_role_policy_attachment" "lambda_apigw_full_access" {
   role       = aws_iam_role.lambda_apigw_full_access.name
 }
 
+data "tfe_organization" "hcp_organization" {
+  name = var.hcp_organization_name
+}
+
 resource "tfe_variable_set" "lambda_apigw_role_var_set" {
   name         = aws_iam_role.lambda_apigw_full_access.name
   description  = "OIDC federation configuration for ${aws_iam_role.lambda_apigw_full_access.name}"
-  organization = var.hcp_organization_name
+  organization = tfe_organization.hcp_organization.name
   global       = false
 }
 
