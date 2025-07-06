@@ -24,7 +24,7 @@ data "tfe_organization" "hcp_organization" {
 resource "tfe_variable_set" "lambda_apigw_role_var_set" {
   name         = aws_iam_role.lambda_apigw_full_access.name
   description  = "OIDC federation configuration for ${aws_iam_role.lambda_apigw_full_access.name}"
-  organization = tfe_organization.hcp_organization.name
+  organization = data.tfe_organization.hcp_organization.name
   global       = false
 }
 
