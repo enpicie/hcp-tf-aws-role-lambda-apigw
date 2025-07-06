@@ -21,6 +21,7 @@ resource "tfe_variable_set" "lambda_apigw_role_var_set" {
   name         = aws_iam_role.lambda_apigw_full_access.name
   description  = "OIDC federation configuration for ${aws_iam_role.lambda_apigw_full_access.name}"
   organization = var.hcp_organization_name
+  global       = false
 }
 
 resource "tfe_variable" "tfc_aws_provider_auth" {
