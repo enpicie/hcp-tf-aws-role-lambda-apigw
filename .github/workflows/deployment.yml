@@ -45,8 +45,8 @@ jobs:
 
       - name: Push Org Variable for Variable Set to Owning Org
         env:
-          GH_TOKEN: ${{ secrets.GH_ACTIONS_PAT }} # Token with admin:org
-          VAR_NAME: HCP_TF_ROLE_LAMBDA_APIGW_PERMS_VAR_SET_NAME
+          GH_TOKEN: ${{ secrets.GH_ACTIONS_PAT }}
+          VAR_NAME: AWS_TF_ROLE_VARSET_LAMB_APIGW
           VAR_VALUE: 'AWS HCP TF OIDC Role - Lambda+APIGateway Perms'
           ORG_NAME: ${{ github.repository_owner }}
         run: |
