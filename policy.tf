@@ -1,5 +1,5 @@
 resource "aws_iam_policy" "lambda_apigw_full_access" {
-  name        = "TerraformLambdaAPIGWFullAccess"
+  name        = "Terraform-FullAccess-Lambda-APIGateway"
   description = "Allows HCP Terraform to provision AWS Lambda and API Gateway resources"
   path        = "/"
 
