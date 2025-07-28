@@ -2,9 +2,9 @@ name: Deploy Terraform to HCP
 
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch:
+    paths:
+      - '**.tf'
+      - '**.tfvars'
 
 env:
   AWS_REGION: 'us-east-2'
