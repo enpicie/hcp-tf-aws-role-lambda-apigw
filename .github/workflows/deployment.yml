@@ -2,6 +2,8 @@ name: Deploy Terraform to HCP
 
 on:
   push:
+    branches:
+      - main
     paths:
       - '**.tf'
       - '**.tfvars'
@@ -27,7 +29,7 @@ jobs:
           tfc_project_id: ${{ env.HCP_TERRAFORM_PROJECT_ID }}
           tfc_token: ${{ secrets.TF_API_TOKEN }}
 
-      - name: Attach IAM Permission Variable Set to this Workspace
+      - name: Attach IAM Permissions Variable Set to this Workspace
         uses: chzylee/action-workflow-hcp-terraform-var-set-attach@v1.0.0
         with:
           tfc_organization: ${{ env.HCP_TERRAFORM_ORG }}
