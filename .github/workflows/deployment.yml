@@ -33,7 +33,7 @@ jobs:
           tfc_organization: ${{ env.HCP_TERRAFORM_ORG }}
           tfc_workspace_id: ${{ steps.setup_workspace.outputs.workspace_id }}
           tfc_token: ${{ secrets.TF_API_TOKEN }}
-          var_set_name: ${{ vars.HCP_TF_ROLE_IAM_PERMS_VAR_SET_NAME}}
+          var_set_name: ${{ vars.AWS_TF_ROLE_VARSET_IAM}}
 
       - name: Deploy Config via HCP Terraform
         uses: chzylee/action-workflow-hcp-terraform-run@v1.1.1
